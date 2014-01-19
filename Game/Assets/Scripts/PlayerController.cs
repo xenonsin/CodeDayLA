@@ -5,11 +5,11 @@ using System.Collections;
 public class PlayerController: MonoBehaviour
 {
 	// movement config
-	public float gravity = -15f;
-	public float runSpeed = 8f;
-	public float groundDamping = 20f; // how fast do we change direction? higher means faster
-	public float inAirDamping = 5f;
-	public float jumpHeight = 3f;
+	public float gravity = -15.0f;
+	public float runSpeed = 4.0f;
+	public float groundDamping = 20.0f; // how fast do we change direction? higher means faster
+	public float inAirDamping = 5.0f;
+	public float jumpHeight = 2.0f;
 
 	[HideInInspector]
 	private float normalizedHorizontalSpeed = 0;
@@ -61,8 +61,8 @@ public class PlayerController: MonoBehaviour
 			if( transform.localScale.x > 0f )
 				transform.localScale = new Vector3( -transform.localScale.x, transform.localScale.y, transform.localScale.z );
 
-			//if( _controller.isGrounded )
-				//_animator.Play(Animator.StringToHash( "Run" ) );
+			if( _controller.isGrounded )
+				_animator.Play(Animator.StringToHash( "Walk" ) );
 		}
         else if (Input.GetAxis("Horizontal") > 0)
 		{
@@ -70,14 +70,14 @@ public class PlayerController: MonoBehaviour
 			if( transform.localScale.x < 0f )
 				transform.localScale = new Vector3( -transform.localScale.x, transform.localScale.y, transform.localScale.z );
 
-			//if( _controller.isGrounded )
-				//_animator.Play( Animator.StringToHash( "Run" ) );
+			if( _controller.isGrounded )
+				_animator.Play( Animator.StringToHash( "Walk" ) );
 		}
 		else
 		{
 
-			//if( _controller.isGrounded )
-				//_animator.Play( Animator.StringToHash( "Idle" ) );
+			if( _controller.isGrounded )
+				_animator.Play( Animator.StringToHash( "Idle" ) );
 		}
 
 

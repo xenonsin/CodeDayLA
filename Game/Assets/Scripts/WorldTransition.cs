@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WorldTransition : MonoBehaviour {
 
-    public static bool white = true;
+    public static bool white;
     public static int level = 1;
 
     public GameObject[] whiteGOS;
@@ -12,6 +12,8 @@ public class WorldTransition : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        white = true;
 
         whiteGOS = GameObject.FindGameObjectsWithTag("White");
         blackGOS = GameObject.FindGameObjectsWithTag("Black");

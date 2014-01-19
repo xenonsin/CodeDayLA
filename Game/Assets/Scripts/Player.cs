@@ -6,16 +6,14 @@ public class Player : MonoBehaviour {
     private bool normalDoor = false;
     private bool keyDoor = false;
     public static bool hasKey = false;
-    
+    public static Vector2 lastCheckpoint;
 
-  
 
 	// Use this for initialization
 	void Start () {
 
-        renderer.sortingLayerName = "Foreground";
-        renderer.sortingOrder = 2;
-            //.sortingLayerName = "Foreground";
+        lastCheckpoint = new Vector2(transform.position.x, transform.position.y);
+
 
 	}
 	
@@ -33,14 +31,21 @@ public class Player : MonoBehaviour {
         if (normalDoor)
         {
             WorldTransition.level++;
-            Application.LoadLevel("Level " + WorldTransition.level);
+
+            if (Application.CanStreamedLevelBeLoaded("Level " + WorldTransition.level))
+                 Application.LoadLevel("Level " + WorldTransition.level);
         }
 
         if (keyDoor && hasKey)
         {
             WorldTransition.level++;
-            Application.LoadLevel("Level " + WorldTransition.level);
+            if (Application.CanStreamedLevelBeLoaded("Level " + WorldTransition.level))
+                Application.LoadLevel("Level " + WorldTransition.level);
         }
+
+        if (transform.position.y < -30)
+            transform.position = lastCheckpoint;
+   
 
         
 	}
