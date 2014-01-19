@@ -20,6 +20,7 @@ public class PlayerController: MonoBehaviour
 	private Vector3 _velocity;
 
     private float jumpCount = 0;
+    private bool push = false;
 
 
 
@@ -39,6 +40,8 @@ public class PlayerController: MonoBehaviour
 
 		// logs any collider hits if uncommented
 		//Debug.Log( "flags: " + _controller.collisionState + ", hit.normal: " + hit.normal );
+
+  
 	}
 
 
@@ -87,7 +90,7 @@ public class PlayerController: MonoBehaviour
             jumpCount++;
             _velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity );
 
-			//_animator.Play( Animator.StringToHash( "Jump" ) );
+			_animator.Play( Animator.StringToHash( "Jump" ) );
 		}
 
         //short hop
@@ -119,18 +122,17 @@ public class PlayerController: MonoBehaviour
             else
                 WorldTransition.white = true;
         }
+
+        push = Physics2D.OverlapCircle(transform.localPosition, .4f, 1 << LayerMask.NameToLayer("Moveable"));
+
+        /*if(push && _controller.isGrounded)
+        {
+            _animator.Play(Animator.StringToHash("Push"));
+        }*/
+        
+        
     }
 
-    void onCollisionEnter2D(Collision2D c)
-    {
-        if (c.gameObject.tag == "Moveable")
-        {
-            if (_velocity.x > 0.3)
-                c.rigidbody.AddForce(new Vector2 (3, 0));
-            if (_velocity.x < -0.3)
-                c.rigidbody.AddForce(new Vector2 (-1, 0));
-        }
-    }
 }
 
 
