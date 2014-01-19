@@ -44,7 +44,10 @@ public class Player : MonoBehaviour {
         }
 
         if (transform.position.y < -30)
+        {
+            WorldTransition.white = true;
             transform.position = lastCheckpoint;
+        }
    
 
         

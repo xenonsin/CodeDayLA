@@ -70,6 +70,8 @@ public class CharacterController2D : MonoBehaviour
 	/// </summary>
 	public LayerMask platformMask = 0;
 
+    public LayerMask moveableMask = 0;
+
 	/// <summary>
 	/// mask with all layers that should act as one-way platforms. Note that one-way platforms should always be EdgeCollider2Ds
 	/// </summary>
@@ -200,7 +202,7 @@ public class CharacterController2D : MonoBehaviour
 			var ray = new Vector2( initialRayOrigin.x, initialRayOrigin.y + i * _verticalDistanceBetweenRays );
 
 			DrawRay( ray, rayDirection, Color.red );
-			_raycastHit = Physics2D.Raycast( ray, rayDirection, rayDistance, platformMask & ~oneWayPlatformMask );
+			_raycastHit = Physics2D.Raycast( ray, rayDirection, rayDistance, platformMask & ~oneWayPlatformMask | moveableMask);
 			if( _raycastHit )
 			{
 				// the bottom ray can hit slopes but no other ray can so we have special handling for those cases
@@ -293,16 +295,16 @@ public class CharacterController2D : MonoBehaviour
 		var initialRayOrigin = isGoingUp ? _raycastOrigins.topLeft : _raycastOrigins.bottomLeft;
 
 		// if we are moving up, we should ignore the layers in oneWayPlatformMask
-		var mask = platformMask;
+		//var mask = platformMask;
 		if( isGoingUp )
-			mask &= ~oneWayPlatformMask;
+            platformMask &= ~oneWayPlatformMask;
 
 		for( var i = 0; i < totalVerticalRays; i++ )
 		{
 			var ray = new Vector2( initialRayOrigin.x + i * _horizontalDistanceBetweenRays, initialRayOrigin.y );
 
 			DrawRay( ray, rayDirection, Color.red );
-			_raycastHit = Physics2D.Raycast( ray, rayDirection, rayDistance, mask );
+            _raycastHit = Physics2D.Raycast(ray, rayDirection, rayDistance, platformMask | moveableMask);
 			if( _raycastHit )
 			{
 				// set our new deltaMovement and recalculate the rayDistance taking it into account
