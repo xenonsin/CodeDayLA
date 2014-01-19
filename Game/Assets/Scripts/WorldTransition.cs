@@ -4,6 +4,7 @@ using System.Collections;
 public class WorldTransition : MonoBehaviour {
 
     public static bool white = true;
+    public static int level = 1;
 
     public GameObject[] whiteGOS;
     public GameObject[] blackGOS;
@@ -15,8 +16,8 @@ public class WorldTransition : MonoBehaviour {
         whiteGOS = GameObject.FindGameObjectsWithTag("White");
         blackGOS = GameObject.FindGameObjectsWithTag("Black");
 
-        foreach (var go in blackGOS)
-            go.renderer.material.color = Color.black;
+        /*foreach (var go in blackGOS)
+            go.renderer.material.color = Color.black;*/
 	
 	}
 	
@@ -29,12 +30,14 @@ public class WorldTransition : MonoBehaviour {
         {
             foreach (var go in whiteGOS)
             {
+                if (go != null)
                 go.SetActive(true);
 
             }
 
             foreach (var go in blackGOS)
             {
+                if (go != null)
                 go.SetActive(false);
        
             }
@@ -44,12 +47,14 @@ public class WorldTransition : MonoBehaviour {
         {
             foreach (var go in whiteGOS)
             {
+                if (go != null)
                 go.SetActive(false);
 
             }
 
             foreach (var go in blackGOS)
             {
+                if(go != null)
                 go.SetActive(true);
 
             }

@@ -119,8 +119,19 @@ public class PlayerController: MonoBehaviour
             else
                 WorldTransition.white = true;
         }
+    }
+
+    void onCollisionEnter2D(Collision2D c)
+    {
+        if (c.gameObject.tag == "Moveable")
+        {
+            if (_velocity.x > 0.3)
+                c.rigidbody.AddForce(new Vector2 (3, 0));
+            if (_velocity.x < -0.3)
+                c.rigidbody.AddForce(new Vector2 (-1, 0));
+        }
+    }
 }
-	}
 
 
     
