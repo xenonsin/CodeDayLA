@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
 
     private bool normalDoor = false;
     private bool keyDoor = false;
     public static bool hasKey = false;
+    private bool platform = false;
     public static Vector2 lastCheckpoint;
+
 
 
 	// Use this for initialization
@@ -28,6 +30,7 @@ public class Player : MonoBehaviour {
 
         keyDoor = Physics2D.OverlapCircle(transform.localPosition, .5f, 1 << LayerMask.NameToLayer("Key Door"));
 
+
         if (normalDoor)
         {
             WorldTransition.level++;
@@ -48,9 +51,10 @@ public class Player : MonoBehaviour {
             WorldTransition.white = true;
             transform.position = lastCheckpoint;
         }
-   
 
+     
         
 	}
+
 
 }

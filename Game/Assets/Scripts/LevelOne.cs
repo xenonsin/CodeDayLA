@@ -12,4 +12,15 @@ public class LevelOne : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    void OnGUI()
+    {
+        GUI.BeginGroup(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 300, 200));
+
+        GUI.Label(new Rect(0, 0, 200, 200), "Turn the lights off with K!");
+
+       
+
+        GUI.EndGroup();
+    }
 }

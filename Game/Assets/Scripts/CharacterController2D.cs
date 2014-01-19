@@ -72,6 +72,8 @@ public class CharacterController2D : MonoBehaviour
 
     public LayerMask moveableMask = 0;
 
+    public LayerMask mplatMask = 0;
+
 	/// <summary>
 	/// mask with all layers that should act as one-way platforms. Note that one-way platforms should always be EdgeCollider2Ds
 	/// </summary>
@@ -103,6 +105,10 @@ public class CharacterController2D : MonoBehaviour
 	[NonSerialized]
 	public Vector3 velocity;
 	public bool isGrounded { get { return collisionState.below; } }
+
+    //public bool isNearMoveableR { get { return collisionState.right; } }
+
+    //public bool isNearMoveableL { get { return collisionState.left; } }
 
 	#endregion
 
@@ -202,7 +208,7 @@ public class CharacterController2D : MonoBehaviour
 			var ray = new Vector2( initialRayOrigin.x, initialRayOrigin.y + i * _verticalDistanceBetweenRays );
 
 			DrawRay( ray, rayDirection, Color.red );
-			_raycastHit = Physics2D.Raycast( ray, rayDirection, rayDistance, platformMask & ~oneWayPlatformMask | moveableMask);
+            _raycastHit = Physics2D.Raycast(ray, rayDirection, rayDistance, platformMask & ~oneWayPlatformMask | moveableMask | mplatMask);
 			if( _raycastHit )
 			{
 				// the bottom ray can hit slopes but no other ray can so we have special handling for those cases
@@ -304,7 +310,7 @@ public class CharacterController2D : MonoBehaviour
 			var ray = new Vector2( initialRayOrigin.x + i * _horizontalDistanceBetweenRays, initialRayOrigin.y );
 
 			DrawRay( ray, rayDirection, Color.red );
-            _raycastHit = Physics2D.Raycast(ray, rayDirection, rayDistance, platformMask | moveableMask);
+            _raycastHit = Physics2D.Raycast(ray, rayDirection, rayDistance, platformMask | moveableMask | mplatMask);
 			if( _raycastHit )
 			{
 				// set our new deltaMovement and recalculate the rayDistance taking it into account
